@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flavor Blitz — Order Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;600&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark">FB</span>
+      <span class="brand-name">FLAVOR&nbsp;BLITZ</span>
+    </div>
+    <nav class="site-nav">
+      <a href="#menu">Menu</a>
+      <a href="#ticket" class="cart-pill" id="cartPill">
+        Ticket <span id="cartCount">0</span>
+      </a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Fired up daily &middot; est. 2026</p>
+      <h1>FAST FOOD,<br>FULL BLAST.</h1>
+      <p class="hero-sub">Flame-grilled burgers, crisp-cut chips, ice-cold drinks. Order in under a minute — we'll have it fired up before you finish paying.</p>
+      <a href="#menu" class="btn btn-primary">See the menu ↓</a>
+    </div>
+    <div class="hero-ticket-peek">
+      <div class="ticket-mini">
+        <p class="ticket-mini-line">ORDER #0417</p>
+        <p class="ticket-mini-line dim">2x BLITZ CLASSIC</p>
+        <p class="ticket-mini-line dim">1x LOADED CHILI CHIPS</p>
+        <p class="ticket-mini-line dim">1x HOUSE COLA</p>
+        <p class="ticket-mini-total">TOTAL&nbsp; $19.50</p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="menu" class="menu-section">
+      <h2 class="section-title">The Menu</h2>
+
+      <div class="category-block" data-category="burgers">
+        <h3 class="category-title">Burgers</h3>
+        <div class="menu-grid" id="grid-burgers"></div>
+      </div>
+
+      <div class="category-block" data-category="chips">
+        <h3 class="category-title">Chips</h3>
+        <div class="menu-grid" id="grid-chips"></div>
+      </div>
+
+      <div class="category-block" data-category="drinks">
+        <h3 class="category-title">Drinks</h3>
+        <div class="menu-grid" id="grid-drinks"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Order ticket — signature cart element -->
+  <aside class="ticket-panel" id="ticketPanel" aria-label="Your order ticket">
+    <div class="ticket">
+      <div class="ticket-head">
+        <p class="ticket-order-no">ORDER #<span id="orderNo">----</span></p>
+        <p class="ticket-timestamp" id="ticketTime">--:--</p>
+      </div>
+      <div class="ticket-divider">- - - - - - - - - - - - - - - -</div>
+
+      <div class="ticket-lines" id="ticketLines">
+        <p class="ticket-empty">No items yet. Tap the menu to start your order.</p>
+      </div>
+
+      <div class="ticket-divider">- - - - - - - - - - - - - - - -</div>
+      <div class="ticket-totals">
+        <div class="ticket-row"><span>Subtotal</span><span id="ticketSubtotal">$0.00</span></div>
+        <div class="ticket-row"><span>Tax (8%)</span><span id="ticketTax">$0.00</span></div>
+        <div class="ticket-row ticket-total"><span>Total</span><span id="ticketTotal">$0.00</span></div>
+      </div>
+
+      <button class="btn btn-primary btn-checkout" id="checkoutBtn" disabled>Checkout</button>
+      <p class="ticket-footnote">DevOps Platform Portfolio — Restaurant Ordering System</p>
+    </div>
+    <button class="ticket-close" id="ticketClose" aria-label="Close order ticket">×</button>
+  </aside>
+  <button class="ticket-toggle-mobile" id="ticketToggleMobile" aria-label="Open order ticket">🧾 <span id="ticketToggleCount">0</span></button>
+
+  <!-- Checkout modal -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close checkout">×</button>
+      <h3 id="modalTitle">Complete your order</h3>
+      <p class="modal-sub" id="modalTotalLine">Total due: $0.00</p>
+
+      <form id="checkoutForm" novalidate>
+        <label class="field">
+          <span>Name on card</span>
+          <input type="text" id="ccName" placeholder="Ashlyne Chiweshe" required>
+        </label>
+        <label class="field">
+          <span>Card number</span>
+          <input type="text" id="ccNumber" placeholder="4242 4242 4242 4242" inputmode="numeric" maxlength="19" required>
+        </label>
+        <div class="field-row">
+          <label class="field">
+            <span>Expiry</span>
+            <input type="text" id="ccExpiry" placeholder="MM/YY" maxlength="5" required>
+          </label>
+          <label class="field">
+            <span>CVV</span>
+            <input type="text" id="ccCvv" placeholder="123" inputmode="numeric" maxlength="4" required>
+          </label>
+        </div>
+        <p class="field-error" id="formError"></p>
+        <button type="submit" class="btn btn-primary btn-full" id="payBtn">Pay now</button>
+        <p class="modal-note">Simulated payment gateway — no real card is charged. Built to be swapped for a live processor.</p>
+      </form>
+
+      <div class="modal-success" id="modalSuccess" hidden>
+        <p class="success-mark">✓</p>
+        <h4>Order confirmed</h4>
+        <p id="successOrderNo"></p>
+        <button class="btn btn-primary" id="successCloseBtn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>Flavor Blitz &middot; DevOps Platform Portfolio — Restaurant Ordering System</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
